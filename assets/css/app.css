@@ -1,0 +1,76 @@
+/* This file is for your main application css. */
+
+@import "../node_modules/materialize-css/dist/css/materialize.css";
+
+@import "./phoenix.css";
+
+.primary-dark-color {
+    background-color: #512DA8 !important;
+}
+
+.primary-color {
+    background-color: #673AB7 !important;
+}
+
+.primary-text {
+    color: #212121 !important;
+}
+
+.secondary-color {
+    background-color: #795548 !important;
+}
+
+.secondary-text {
+    color: #757575 !important;
+}
+
+.card-form {
+    padding: 10px;
+    margin-bottom: 0px;
+}
+
+.help-block {
+    color: red !important;
+    padding-bottom: 5px;
+}
+
+body {
+    background-color: rgb(255, 255, 255);
+}
+
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    right: 250px;
+    width: 0;
+    height: 100%;
+    margin-right: -250px;
+    overflow-y: scroll;
+    background: #222;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    position: absolute;
+}
+
+#wrapper {
+    padding-right: 250px;
+}
+
+#sidebar-wrapper {
+    width: 250px;
+}
+

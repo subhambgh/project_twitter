@@ -1,0 +1,42 @@
+<div class="row">
+    <aside class="col-md-4">
+        <section class="user_info">
+            <h1>
+                <%= @user.name %>
+            </h1>
+            <%= link "View my profile", to: Routes.user_path(@conn, :show, @current_user) %><br>
+            <b>Microposts:</b> <%= @count %>
+        </section>
+        <section class="stats">
+            <div class="stats">
+                <%= link to: Routes.user_follower_path(@conn, :following, @user) do %>
+                    <strong id="following" class="stat">
+                        <%= Enum.count(@following) %>
+                    </strong>
+                    following
+                <% end %>
+                <%= link to: Routes.user_follower_path(@conn, :followers, @user) do %>
+                    <strong id="followers" class="stat">
+                        <%= Enum.count(@followers) %>
+                    </strong>
+                    followers
+                <% end %>
+            </div>
+            <%= unless @current_user == @user  do %>
+                <%= if Accounts.following?(@current_user, @user) do %>
+                    <%= form_for @conn, Routes.user_relationship_path(@conn, :unfollow, @user), ["data-remote": "true"], fn f -> %>
+                        <%= submit "Unfollow" %>
+                    <% end %>
+                <% else %>
+                    <%= form_for @conn, Routes.user_relationship_path(@conn, :follow, @user), ["data-remote": "true"], fn f -> %>
+                        <%= submit "Follow" %>
+                    <% end %>
+                <% end %>
+            <% end %>
+        </section>
+
+        <section class="micropost_form">
+            <%= render ChirperWeb.PostView, "form.html", conn: @conn, user: @user, changeset: @changeset %>
+        </section>
+    </aside>
+</div>

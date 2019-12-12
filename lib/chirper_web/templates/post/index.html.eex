@@ -1,0 +1,62 @@
+<div class="container">
+	<div id="wrapper">
+	    <div id="sidebar-wrapper">
+	        <ul class="sidebar-nav nav navbar-inverse" id="presences">
+	        </ul>
+	    </div>
+	</div>
+	<div class="row">
+	    <aside class="col-md-4">
+	        <section class="user_info">
+	            <h1>
+	                <%= @user.username %>
+	                </h1>
+	        </section>
+	        <section class="stats">
+	            <div class="stats">
+	                <!--%= link to: Routes.follower_path(@conn, :following, @user) do %-->
+	                    <strong id="following" class="stat">
+	                        <%= Enum.count(@following) %>
+	                    </strong>
+	                    following
+	                <!--% end %-->
+	                <!--%= link to: Routes.user_follower_path(@conn, :followers, @user) do %-->
+	                    <strong id="followers" class="stat">
+	                        <%= Enum.count(@followers) %>
+	                    </strong>
+	                    followers
+	                <!--% end %-->
+	            </div>
+	            <%= unless @current_user == @user  do %>
+	                <%= if Accounts.following?(@current_user, @user) do %>
+	                    <%= form_for @conn, Routes.user_relationship_path(@conn, :unfollow, @user), ["data-remote": "true"], fn f -> %>
+	                        <%= submit "Unfollow" %>
+	                    <% end %>
+	                <% else %>
+	                    <%= form_for @conn, Routes.user_relationship_path(@conn, :follow, @user), ["data-remote": "true"], fn f -> %>
+	                        <%= submit "Follow" %>
+	                    <% end %>
+	                <% end %>
+	            <% end %>
+	        </section>
+	    </aside>
+	    <div class="col-md-8">
+	    	<%= render "form.html", Map.put(assigns, :action, Routes.post_path(@conn, :create)) %>
+	    </div>
+	</div>
+	<div class="row">
+		<%= for post <- @posts do %>
+		    <%= render "card.html", post: post, conn: @conn %>
+
+		    <%# <tr> %>
+		      <%# <td><%= post.title </td> %>
+		      <%# <td><%= post.body </td> %>
+
+		      <%# <td> %>
+		        <%# <%= link "Show", to: Routes.post_path(@conn, :show, post)  %>
+		        
+		      <%# </td> %>
+		    <%# </tr> %>
+		<% end %>
+	</div>
+</div>
