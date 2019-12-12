@@ -5,7 +5,7 @@ defmodule ChirperWeb.SessionController do
   alias Chirper.Repo
 
   def new(conn, _params) do
-    render(conn, "new.html")
+    render(conn, "index.html")
   end
 
   @spec create(Plug.Conn.t(), map()) :: Plug.Conn.t()
@@ -19,7 +19,7 @@ defmodule ChirperWeb.SessionController do
     :error ->
       conn
       |> put_flash(:error, "There was a problem with your username/password")
-      |> render("new.html")
+      |> render("index.html")
     end
   end
 
