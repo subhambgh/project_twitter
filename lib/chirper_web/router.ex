@@ -27,6 +27,7 @@ defmodule ChirperWeb.Router do
 
     resources "/", PostController, only: [:create, :index]
     get "/retweet", PostController, :retweet
+    get "/search", PostController, :search
     resources "/users", UserController, only: [:index, :create, :new, :show] do
       post "/follow", RelationshipController, :follow
       post "/unfollow", RelationshipController, :unfollow
