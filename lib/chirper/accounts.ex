@@ -45,6 +45,12 @@ defmodule Chirper.Accounts do
     |> Repo.preload(posts: [:user])
   end
 
+  def get_username!(id) do
+    user = User
+    |> Repo.get!(id)
+    user.username
+  end
+  
   @doc """
   Creates a user.
 
@@ -136,7 +142,7 @@ defmodule Chirper.Accounts do
   end
 
   def following?(current_user, other_user) do
-    Enum.member?(following(current_user), other_user)
+    Enum.member?(following_ids(current_user.id), other_user.id)
   end
 
   def unfollow(current_user, other_user) do
