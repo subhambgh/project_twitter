@@ -6,17 +6,26 @@
     </div>
   <% end %>
 
+  
+  
+  
+  
 
-  <%= label f, :whats_happening_? %>
-  <%= text_input f, :title %>
-  <%= error_tag f, :title %>
+  <div class="row">
+    <div class="input-field col" style="width: 100%;">
+      <i class="material-icons prefix">mode_edit</i>
+      <%= text_input f, :title %>
+      <%= error_tag f, :title %>    
+      <%= label f, :whats_happening_? %>
+    </div>
+  </div>
 
   <%= label f, :use_tags %>
   <%= textarea f, :body %>
   <%= error_tag f, :body %>
 
-  <div >
-    <%= submit "Tweet" %>
+  <div style="text-align: right;margin-top: 10px;">
+    <%= submit "Tweet", class: "waves-effect waves-light btn-floating btn-large social twitter" %>
 
   </div>
 <% end %>
