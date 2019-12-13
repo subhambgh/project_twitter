@@ -28,6 +28,24 @@
   50% { border-color: orange; }
 }
 
+.custom-card {
+  /* Add shadows to create the "card" effect */
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  margin-bottom: -20px;
+  margin-top: -10px;
+}
+
+/* On mouse-over, add a deeper shadow */
+.custom-card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+/* Add some padding inside the card container */
+.custom-container {
+  padding: 2px 16px;
+}
+
 </style>
 
 <div class="container-fluid">
@@ -41,70 +59,78 @@
 
 
 
-		<div class ="col s8">
-			
-			<div style="position: relative; text-align: center; color: black; margin-top: 100px;">
-				<img src="https://previews.123rf.com/images/flas100/flas1001311/flas100131100012/23385752-beige-paper-texture-light-background.jpg" alt="Snow" style="width:100%; height: 200px;">
-				  
+		<div class ="col s8 custom-card"  >
+			<div class="custom-container">
+				
+				<div style="position: relative; text-align: center; color: black; margin-top: 100px;">
+					<img src="https://previews.123rf.com/images/flas100/flas1001311/flas100131100012/23385752-beige-paper-texture-light-background.jpg" alt="Snow" style="width:100%; height: 200px;">
+					  
 
-				<div class="typewriter centered" style="font-family: Times New Roman;">
-				  <div style="margin-top: -140px;">
-				  	<img src="http://icons.iconarchive.com/icons/diversity-avatars/avatars/1024/batman-icon.png" style="width: 150px; height: 150px;">
-				  </div>
-				  <h1>Welcome
-				  <%= @user.username %>!</h1>
+					<div class="typewriter centered" style="font-family: Times New Roman;">
+					  <div style="margin-top: -140px;">
+					  	<img src="http://icons.iconarchive.com/icons/diversity-avatars/avatars/1024/batman-icon.png" style="width: 150px; height: 150px;">
+					  </div>
+					  <h1>Welcome
+					  <%= @user.username %>!</h1>
+					</div>
+
+
+				</div> 
+				
+				<hr style="width: 100%;">
+
+				<div class="row">
+				    <aside class="col-md-4">
+				        <section class="user_info">
+				            <h1>
+				                
+				             </h1>
+				        </section>
+				        <section class="stats">
+				            <div class="stats">
+				                <!--%= link to: Routes.follower_path(@conn, :following, @user) do %-->
+				                    <strong id="following" class="stat">
+				                        <%= Enum.count(@following) %>
+				                    </strong>
+				                    following
+				                <!--% end %-->
+				                <!--%= link to: Routes.user_follower_path(@conn, :followers, @user) do %-->
+				                    <strong id="followers" class="stat">
+				                        <%= Enum.count(@followers) %>
+				                    </strong>
+				                    followers
+				                <!--% end %-->
+				            </div>
+				            <%= unless @current_user == @user  do %>
+				                <%= if Accounts.following?(@current_user, @user) do %>
+				                    <%= form_for @conn, Routes.user_relationship_path(@conn, :unfollow, @user), ["data-remote": "true"], fn f -> %>
+				                        <%= submit "Unfollow" %>
+				                    <% end %>
+				                <% else %>
+				                    <%= form_for @conn, Routes.user_relationship_path(@conn, :follow, @user), ["data-remote": "true"], fn f -> %>
+				                        <%= submit "Follow" %>
+				                    <% end %>
+				                <% end %>
+				            <% end %>
+				        </section>
+				    </aside>
+				    <hr>
+				    <h4>Tweet Here</h4>
+				    <div class="col-md-8 card" style="padding: 10px 20px 20px 20px;">
+				    	<%= render "form.html", Map.put(assigns, :action, Routes.post_path(@conn, :create)) %>
+				    </div>
 				</div>
-
-
-			</div> 
-
-
-			<div class="row">
-			    <aside class="col-md-4">
-			        <section class="user_info">
-			            <h1>
-			                
-			             </h1>
-			        </section>
-			        <section class="stats">
-			            <div class="stats">
-			                <!--%= link to: Routes.follower_path(@conn, :following, @user) do %-->
-			                    <strong id="following" class="stat">
-			                        <%= Enum.count(@following) %>
-			                    </strong>
-			                    following
-			                <!--% end %-->
-			                <!--%= link to: Routes.user_follower_path(@conn, :followers, @user) do %-->
-			                    <strong id="followers" class="stat">
-			                        <%= Enum.count(@followers) %>
-			                    </strong>
-			                    followers
-			                <!--% end %-->
-			            </div>
-			            <%= unless @current_user == @user  do %>
-			                <%= if Accounts.following?(@current_user, @user) do %>
-			                    <%= form_for @conn, Routes.user_relationship_path(@conn, :unfollow, @user), ["data-remote": "true"], fn f -> %>
-			                        <%= submit "Unfollow" %>
-			                    <% end %>
-			                <% else %>
-			                    <%= form_for @conn, Routes.user_relationship_path(@conn, :follow, @user), ["data-remote": "true"], fn f -> %>
-			                        <%= submit "Follow" %>
-			                    <% end %>
-			                <% end %>
-			            <% end %>
-			        </section>
-			    </aside>
-			    <div class="col-md-8">
-			    	<%= render "form.html", Map.put(assigns, :action, Routes.post_path(@conn, :create)) %>
-			    </div>
-			</div>
-			<div class="row">
-				<%= for post <- @posts do %>
-				    <%= render "card.html", post: post, conn: @conn %>
-				<% end %>
+				<hr style="width: 100%;">
+				<h4>Tweets Feed </h4>
+				<div class="row">
+					<%= for post <- @posts do %>
+					    <%= render "card.html", post: post, conn: @conn %>
+					<% end %>
+				</div>
 			</div>
 		</div>
 
+		<div class="vertical-line"></div>
 		<div class ="col s2">
 			<ul class="sidebar-nav nav navbar-inverse" id="presences" >
 			</ul>
