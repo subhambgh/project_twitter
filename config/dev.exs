@@ -69,7 +69,7 @@ config :phoenix, :plug_init_mode, :runtime
 # Configure your database
 config :chirper, Chirper.Repo,
   username: "postgres",
-  password: "postgres",
+  password: "GoGators",
   database: "chirper_dev",
   hostname: "localhost",
   pool_size: 10

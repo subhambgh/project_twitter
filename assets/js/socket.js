@@ -17,7 +17,31 @@ const renderPresences = (presences) => {
     }
   })
   document.getElementById('presences').innerHTML = listed_presences
-    .map(presence => `<li onclick=""><a><strong>User ${presence.user}</strong> <small>online since ${presence.onlineAt}</small></a></li>`)
+    .map(presence => `
+      <div >
+        <li onclick="">
+          <a>
+            <div class = "row">
+              
+              <div class ="col s4" style="padding-left: 20px; padding-top: 10px;">
+                <img src="https://cdn1.iconfinder.com/data/icons/flat-character-color-1/60/flat-design-character_1-512.png" 
+                style="max-width:90%; max-height:90%;">
+              </div>
+
+              <div class ="col s8">
+                <strong>
+                  User ${presence.user}
+                </strong>
+                <br> 
+                <small>
+                  online since ${presence.onlineAt}
+                </small>
+              </div>
+
+            </div>        
+          </a>
+        </li>
+      </div>`)
     .join("")
 }
 
@@ -59,4 +83,21 @@ channel.join()
 
 export default socket
 
+
+//NAV Bar
+document.addEventListener('DOMContentLoaded', function() {
+  var elems = document.querySelectorAll('.sidenav');
+  var instances = M.Sidenav.init(elems, options);
+});
+
+// Initialize collapsible (uncomment the lines below if you use the dropdown variation)
+// var collapsibleElem = document.querySelector('.collapsible');
+// var collapsibleInstance = M.Collapsible.init(collapsibleElem, options);
+
+// Or with jQuery
+
+$(document).ready(function(){
+  $('.sidenav').sidenav();
+});
+      
 
