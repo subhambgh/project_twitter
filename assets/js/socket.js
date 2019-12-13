@@ -6,14 +6,16 @@
 import {Socket,Presence} from "phoenix"
 
 let socket = new Socket("/socket", {params: {token: window.userToken}})
-
+  
 socket.connect()
 
 const renderPresences = (presences) => {
+  console.log(presences)
   const listed_presences = Presence.list(presences, (user, {metas: metas}) => {
     return {
       user: user,
-      onlineAt: new Date(parseInt(metas[0].online_at) * 1000)
+      onlineAt: new Date(parseInt(metas[0].online_at) * 1000),
+      username: metas[0].username
     }
   })
   document.getElementById('presences').innerHTML = listed_presences
@@ -30,7 +32,7 @@ const renderPresences = (presences) => {
 
               <div class ="col s8">
                 <strong>
-                  User ${presence.user}
+                  ${presence.username}
                 </strong>
                 <br> 
                 <small>
@@ -65,25 +67,37 @@ channel.on(`user:${window.userId}:new_message`, (message) => {
   renderMessage(message)
 });
 channel.on("change", tweet => {
-  console.log("Change:", tweet);
+  
   const div = document.createElement('div');
   div.className = 'card';
   div.innerHTML = `
     <div class='card-content'>
         <div class=row>
-        <span class="card-title grey-text text-darken-4">`+tweet.title+`<i class="material-icons right dropdown-trigger  activator" data-target='dropdown`+tweet.title+`'>more_vert</i></span>
-        <ul id='dropdown`+tweet.id+`' class='dropdown-content'>
-            <li><!--%= link "Edit", to: Routes.post_path(@conn, :retweet, @post)  %--></li>
+        <span class="card-title grey-text text-darken-4">`+tweet.title+`<i class="material-icons right dropdown-trigger  activator" data-target='dropdown`+tweet.id+`'>more_vert</i></span>
+        <ul id='dropdown`+tweet.id+`' class="dropdown-content">
         </ul>
         `+tweet.body+`
         <br/>
-        <div class="chip right">
-            <img src='<%= "https://ui-avatars.com/api/?name=`+tweet.user+`&bold=true&background=512DA8&color=FFF&rounded=true" %>' alt="Contact Person">
+        <div id='avatars`+tweet.id+`' class="chip right">
             `+tweet.user+`
         </div>
         </div>
     </div>`
+
     document.getElementById('posts').appendChild(div);
+
+    var ul =document.getElementById("dropdown"+tweet.id);
+    var li = document.createElement("li");
+    var a = document.createElement("a");
+    a.href = "/retweet?post_id="+tweet.id
+    a.appendChild(document.createTextNode("Retweet"));
+    li.appendChild(a);
+    ul.appendChild(li);
+    
+    var img = document.createElement("img");
+    img.src = "https://ui-avatars.com/api/?name="+tweet.user+"&bold=true&background=512DA8&color=FFF&rounded=true" ;
+    var src = document.getElementById("avatars"+tweet.id);
+    src.appendChild(img);
   
 })
 
@@ -106,7 +120,7 @@ export default socket
 //NAV Bar
 document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('.sidenav');
-  var instances = M.Sidenav.init(elems, options);
+  var instances = M.Sidenav.init(elems, "");
 });
 
 // Initialize collapsible (uncomment the lines below if you use the dropdown variation)

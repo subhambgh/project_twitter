@@ -40,6 +40,8 @@ defmodule ChirperWeb.UserChannel do
 
   def handle_in("message:add", %{"message" => content}, socket) do
     user_id = socket.assigns[:user_id]
+    IO.inspect("____________######################____")
+    IO.inspect( content)
     broadcast!(socket, "user:#{user_id}:new_message", %{content: content})
     {:reply, :ok, socket}
   end
@@ -59,7 +61,7 @@ defmodule ChirperWeb.UserChannel do
   # Track the current process as a presence for the given user on it's designated presence topic
   defp track_user_presence(user_id) do
     {:ok, _} = MyPresence.track(self(), presence_topic(user_id), user_id, %{
-      online_at: inspect(System.system_time(:seconds))
+      online_at: inspect(System.system_time(:seconds)), username: Accounts.get_username!(user_id)
     })
   end
 

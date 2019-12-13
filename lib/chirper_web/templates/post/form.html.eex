@@ -6,15 +6,17 @@
     </div>
   <% end %>
 
-  <%= label f, :title %>
+
+  <%= label f, :whats_happening_? %>
   <%= text_input f, :title %>
   <%= error_tag f, :title %>
 
-  <%= label f, :body %>
+  <%= label f, :use_tags %>
   <%= textarea f, :body %>
   <%= error_tag f, :body %>
 
-  <div>
-    <%= submit "Tweet", layout %>
+  <div >
+    <%= submit "Tweet" %>
+
   </div>
 <% end %>

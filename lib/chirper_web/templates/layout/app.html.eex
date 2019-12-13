@@ -14,7 +14,7 @@
   <body style="background: #f3c538;">
     <nav>
       <div class="nav-wrapper black">
-        <a href="#!" class="brand-logo"><i class="material-icons sidenav-trigger  black"  data-target="slide-out" style="margin-left: 10px;">menu</i><text>Twitter</text></a>
+        <a href="/" class="brand-logo"><i class="material-icons sidenav-trigger  black"  data-target="slide-out" style="margin-left: 10px;">menu</i><text>Twitter</text></a>
 
         <!-- Dropdown Structure User actions -->
         <ul id="user-actions" class="dropdown-content">
@@ -30,7 +30,7 @@
         </ul>
 
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li><%= link "Users", to: Routes.user_path(@conn, :index)%></li>
+          <li><%= link "#Users", to: Routes.user_path(@conn, :index)%></li>
         </ul>
 
       </div>
@@ -40,24 +40,6 @@
         <%= render @view_module, @view_template, assigns %>
       </div>
     </main>
-    
-
-
-    <ul id="slide-out" class="sidenav">
-      <li><div class="user-view">
-        <div class="background">
-          <img src="https://www.availableideas.com/wp-content/uploads/2016/10/Colorful-Polygonal-Render-iPhone-6-Plus-HD-Wallpaper.jpg">
-        </div>
-        <a href="#user"><img class="circle" src="https://www.cise.ufl.edu/wp-content/uploads/2018/07/dobra-alin_sm.jpg"></a>
-        <a href="#name"><span class="white-text name">John Doe</span></a>
-        <a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>
-      </div></li>
-      <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
-      <li><a href="#!">Second Link</a></li>
-      <li><div class="divider"></div></li>
-      <li><a class="subheader">Subheader</a></li>
-      <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
-    </ul>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script>
