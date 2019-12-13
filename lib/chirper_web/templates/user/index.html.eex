@@ -1,23 +1,19 @@
-<h1>Listing Users</h1>
+<h4>#USERS</h4>
 
-<table>
+<table class="table">
   <thead>
     <tr>
-      <th>Username</th>
-      <th>Follow</th>
-      <th>Profile</th>
+      <th scope="col">#</th>
+      <th scope="col">Username</th>
+      <th scope="col">Profile</th>
     </tr>
   </thead>
   <tbody>
 <%= for user <- @users do %>
     <tr>
+      <td><%= user.id %></td>
       <td><%= user.username %></td>
-      <td>
-        <!--%= link "Follow", to: Routes.user_path(@conn, :show, user) %-->
-      </td>
-      <td>
-        <%= link "Profile", to: Routes.user_path(@conn, :show, user) %>
-      </td>
+      <td><%= link "Profile", to: Routes.user_path(@conn, :show, user) %></td>
     </tr>
 <% end %>
   </tbody>

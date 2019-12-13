@@ -27,7 +27,7 @@ defmodule ChirperWeb.PostController do
     user = Accounts.get_user!(conn.assigns.current_user.id)
     followers = Accounts.followers(user)
     following = Accounts.following(user)
-    render(conn, "index.html", 
+    render(conn, "index.html",
       posts: posts,
       changeset: changeset,
       user: user,
