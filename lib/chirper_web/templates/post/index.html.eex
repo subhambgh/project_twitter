@@ -53,7 +53,11 @@
   padding: 2px 16px;
 }
 
+.fixed {
+  position: fixed;
+  display: flex;
 
+}
 </style>
 
 <div class="container-fluid">
@@ -63,10 +67,29 @@
 
 		<div class ="col s2">
 
-			<%= for {k, v} <- @hashTagMap do %>
-					    <a><%="#{k}->#{v}"%></a><br>
-			<% end %>
+			<div class="fixed">
+				
+				<div class="row">
+ 					<h5 >Top Hashtags</h5>
+					
+				</div>
 
+
+				<div class="row" style="position: relative; margin-left: -140px; margin-top: 55px; width: 180px;">
+					<hr >
+				</div>
+
+
+				<div class="row" style="position: relative; margin-left: -180px; margin-top: 60px; width: 200px;">
+					<ol >
+						<%= for {k, v} <- @hashTagMap do %>
+								    <li><a><%="#{k}->#{v}"%></a></li>
+						<% end %>
+					</ol>
+				
+					
+				</div>
+			</div>
 
 		</div>
 
