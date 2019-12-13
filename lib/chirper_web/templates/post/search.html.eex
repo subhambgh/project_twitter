@@ -1,7 +1,39 @@
+
+<div class="container-fluid">
+
+  <div class="row">
+    
+    <div class="col s2">
+      
+    </div>
+
+    <div class="col s8">
+
+    	
+
+
 	<%= form_for @conn, Routes.post_path(@conn, :search), [method: :get], fn f -> %>
-      	<%= search_input f, :query %>
-      <%= submit "Search" %>
+     
+	  <div class="row card" style="margin-top: 40px;">
+	  	<div class="row">
+	  		<div class="col s10">
+			  	
+			    <div class="input-field col" style="width: 100%;">
+			      <i class="material-icons prefix">search</i>
+		      		<%= search_input f, :query %>
+			      	
+			    </div>
+	  		</div>
+	  		<div class="col s2">
+		      <div style="text-align: right; margin-top: 30px; margin-right: 30px;">
+		      	<%= submit "Search", class: "waves-effect waves-light btn" %>
+		      </div>
+	  		</div>
+	  	</div>
+	  </div>
     <% end %>
+
+    <hr><br><br>
 
     <div id="posts" class="row">
     	<% IO.inspect @posts %>
@@ -11,3 +43,14 @@
 			<% end %>
 		<% end %>
 	</div>
+
+    </div>
+
+    <div class="col s2">
+      
+    </div>
+
+  </div>
+  
+</div>
+

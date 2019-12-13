@@ -8,12 +8,18 @@
 }
 .typewriter h1 {
   overflow: hidden; /* Ensures the content is not revealed until the animation */
-  border-right: .15em solid orange; /* The typwriter cursor */
+  border-right: .05em solid orange; /* The typwriter cursor */
   white-space: nowrap; /* Keeps the content on a single line */
   margin: 0 auto; /* Gives that scrolling effect as the typing happens */
   animation: 
     typing 3.5s steps(40, end),
     blink-caret .75s step-end infinite;
+}
+/* Bottom left text */
+.bottom-left {
+  position: absolute;
+  bottom: 8px;
+  left: 16px;
 }
 
 /* The typing effect */
@@ -34,6 +40,7 @@
   transition: 0.3s;
   margin-bottom: -20px;
   margin-top: -10px;
+  height: 100%;
 }
 
 /* On mouse-over, add a deeper shadow */
@@ -50,11 +57,17 @@
 </style>
 
 <div class="container-fluid">
+	
 	<div class="row">
+		
+
 		<div class ="col s2">
+
 			<%= for {k, v} <- @hashTagMap do %>
 					    <a><%="#{k}->#{v}"%></a><br>
 			<% end %>
+
+
 		</div>
 
 
@@ -66,58 +79,84 @@
   margin-top: -10px;" >
 			<div class="custom-container">
 				
-				<div style="position: relative; text-align: center; color: black; margin-top: 100px;">
-					<img src="https://previews.123rf.com/images/flas100/flas1001311/flas100131100012/23385752-beige-paper-texture-light-background.jpg" alt="Snow" style="width:100%; height: 200px;">
+				<div style="position: relative; text-align: center; color: black; margin-top: 20px;">
+					<img src="http://digitalimagemakerworld.com/images/batman-wallpapers-hd/38217003-batman-wallpapers-hd.jpg" alt="Snow" style="width:100%; height: 400px;">
 					  
-
-					<div class="typewriter centered" style="font-family: Times New Roman;">
-					  <div style="margin-top: -140px;">
-					  	<img src="http://icons.iconarchive.com/icons/diversity-avatars/avatars/1024/batman-icon.png" style="width: 150px; height: 150px;">
-					  </div>
-					  <h1>Welcome
-					  <%= @user.username %>!</h1>
+					<div class="row  bottom-left" style="margin-bottom: -50px;">
+						<div class="col s3">
+						  	<img src="http://icons.iconarchive.com/icons/diversity-avatars/avatars/1024/batman-icon.png" style="width: 150px; height: 150px;">
+						</div>
+						<div class="col s10">
+							
+							<div style="font-size: 50px;">
+							  <div style="margin-top: -140px;">
+							  </div>
+							  <h5 style="font-family: Times New Roman; margin-top: 50px; margin-left: 100px; font-size: 35px; color: white;">
+							  <%= @user.username %></h5>
+							</div>
+						</div>
 					</div>
 
 
 				</div> 
 				
-				<hr style="width: 100%;">
-
 		
 
-				<div class="row">
-				    <aside class="col-md-4">
+				<div class="row" style="margin-top: 30px;">
+				    <div class="col s3 card" style="height: 250px;">
 				        <section class="user_info">
 				            <h1>
 				            
 				             </h1>
 				        </section>
 				        <section class="stats">
-				            <div class="stats", style="font-family: Georgia, serif; font-size: 22px; " >
+				            <div class="stats", style="font-family: Georgia, serif; font-size: 20px; " >
 				                <!--%= link to: Routes.follower_path(@conn, :following, @user) do %-->
 				                <div class="row">
-				                    <div class="col s2" style="margin: 5px 5px 5px 5px;">
-					                    <strong id="following" class="stat card">
+				                    <div class="col s2" >
+					                    <strong id="following" class="stat ">
 					                        <%= Enum.count(@following) %>
 					                    </strong>
 					                    
 				                    </div>
-				                    <div class="col s4 card" style="margin: 5px 5px 5px 5px;">
+				                    <div class="col s4 " >
 				                    	<div >Following</div>
 				                    </div>
+				                    <br>
 				                <!--% end %-->
 				                <!--%= link to: Routes.user_follower_path(@conn, :followers, @user) do %-->
-				                    <div class="col s2" style="margin: 5px 5px 5px 5px;">
-					                    <strong id="followers" class="stat card">
+				                    <div class="col s2" >
+					                    <strong id="followers" class="stat ">
 					                        <%= Enum.count(@followers) %>
 					                    </strong>
 				                    </div>
-				                    <div class="col s2 card" style="margin: 5px 5px 5px 5px;">
+				                    <div class="col s2 " >
 				                    	<div>Followers</div>
 				                    </div>
+				                    <br>
+				                    <div class="col s2" >
+					                    <strong id="followers" class="stat ">
+					                        
+							            	<%= Enum.count(@posts) %>
+					                    </strong>
+				                    </div>
+				                    <div class="col s2 " >
+				                    	<div> 
+				                    		Tweets
+										</div>
+				                    </div>
+				                    <br><br>
+				                    <div class="col s12 " style="font-size: 15px;" >
+				                    	<div> 
+				                    		"Looking for #summer2020 intenships"
+										</div>
+				                    </div>
+				                    <br><br>
+				                    
 				                <!--% end %-->
 				            	</div>
 				            </div>
+
 				            <%= unless @current_user == @user  do %>
 				                <%= if Accounts.following?(@current_user, @user) do %>
 				                    <%= form_for @conn, Routes.user_relationship_path(@conn, :unfollow, @user), ["data-remote": "true"], fn f -> %>
@@ -130,16 +169,18 @@
 				                <% end %>
 				            <% end %>
 				        </section>
-				    </aside>
-				    <hr>
-				    <h4>Tweet Here</h4>
-				    <div class="col-md-8 card" style="padding: 10px 20px 20px 20px;">
-				    	<%= render "form.html", Map.put(assigns, :action, Routes.post_path(@conn, :create)) %>
 				    </div>
-				</div>
-				<hr style="width: 100%;">
+				    
+				    <div class="col s9">
+				    	
+					    <div class="col-md-8 card" style="padding: 10px 20px 20px 20px;">
+					    	<%= render "form.html", Map.put(assigns, :action, Routes.post_path(@conn, :create)) %>
+					    </div>
+				    </div>
 
-				<h4>Tweet Feeds </h4>
+				</div>
+
+				<h5 style="margin-top: -20px;"><b>Tweets</b></h5>
 				<div id="posts" class="row">
 
 					<%= for post <- @posts do %>
