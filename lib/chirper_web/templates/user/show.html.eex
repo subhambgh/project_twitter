@@ -23,13 +23,13 @@
             </div>
             <%= unless @current_user == @user  do %>
                 <%= if Accounts.following?(@current_user, @user) do %>
-                    <!--%= form_for @conn, Routes.user_relationship_path(@conn, :unfollow, @user), ["data-remote": "true"], fn f -> %-->
+                    <%= form_for @conn, Routes.user_relationship_path(@conn, :unfollow, @user), ["data-remote": "true"], fn f -> %>
                         <%= submit "Unfollow" %>
-                    <!--% end %-->
+                    <% end %>
                 <% else %>
-                    <!--%= form_for @conn, Routes.user_relationship_path(@conn, :follow, @user), ["data-remote": "true"], fn f -> %-->
+                    <%= form_for @conn, Routes.user_relationship_path(@conn, :follow, @user), ["data-remote": "true"], fn f -> %>
                         <%= submit "Follow" %>
-                    <!--% end %-->
+                    <% end %>
                 <% end %>
             <% end %>
         </section>

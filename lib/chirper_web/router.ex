@@ -26,9 +26,13 @@ defmodule ChirperWeb.Router do
     pipe_through [:browser,ChirperWeb.Plugs.Auth,:put_user_token]
 
     resources "/", PostController, only: [:create, :index]
-    resources "/users", UserController, only: [:index, :create, :new, :show]
-    get "/followers", FollowerController, :followers
-    get "/following", FollowerController, :following
+    get "/retweet", PostController, :retweet
+    resources "/users", UserController, only: [:index, :create, :new, :show] do
+      post "/follow", RelationshipController, :follow
+      post "/unfollow", RelationshipController, :unfollow
+    end
+    #get "/followers", FollowerController, :followers
+    #get "/following", FollowerController, :following
     delete "/logout", SessionController, :delete
     get "/*path", ErrorController, :index
   end
