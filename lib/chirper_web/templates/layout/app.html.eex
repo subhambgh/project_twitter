@@ -33,6 +33,10 @@
           <li><%= link "#Users", to: Routes.user_path(@conn, :index)%></li>
         </ul>
 
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><%= link "#Search", to: Routes.post_path(@conn, :search)%></li>
+        </ul>
+
       </div>
     </nav>
     <main>
