@@ -4,7 +4,7 @@ defmodule ChirperWeb.RelationshipController do
   alias Chirper.Accounts
 
   def follow(conn, %{"user_id" => user_id}) do
-    user = Accounts.get_user(user_id)
+    user = Accounts.get_user!(user_id)
     Accounts.follow(user, conn.assigns.current_user)
 
     conn
@@ -14,7 +14,7 @@ defmodule ChirperWeb.RelationshipController do
   end
 
   def unfollow(conn, %{"user_id" => user_id}) do
-    user = Accounts.get_user(user_id)
+    user = Accounts.get_user!(user_id)
     Accounts.unfollow(conn.assigns.current_user, user)
 
     conn

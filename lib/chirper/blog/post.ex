@@ -1,4 +1,6 @@
 defmodule Chirper.Blog.Post do
+@fields ~w(body updated_at title user id)a
+
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -18,4 +20,6 @@ defmodule Chirper.Blog.Post do
     |> validate_required([:title, :body])
     |> unique_constraint(:user_id)
   end
+  
+  def fields, do: @fields
 end

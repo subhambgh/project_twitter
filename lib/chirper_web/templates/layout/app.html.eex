@@ -28,6 +28,11 @@
               <%# <%= link "Login", to: Routes.session_path(@conn, :new) %>
             <% end %>
         </ul>
+
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><%= link "Users", to: Routes.user_path(@conn, :index)%></li>
+        </ul>
+
       </div>
     </nav>
     <main>

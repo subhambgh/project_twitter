@@ -2,6 +2,7 @@ defmodule ChirperWeb.UserChannel do
   use ChirperWeb, :channel
 
   alias ChirperWeb.MyPresence
+  alias Chirper.Accounts
 
   def join("user:" <> user_id_str, _params, socket) do
     if to_string(socket.assigns.user_id) == user_id_str do
@@ -17,7 +18,7 @@ defmodule ChirperWeb.UserChannel do
   end
 
   def handle_info(:after_join, socket = %{assigns: %{user_id: user_id}}) do
-    friend_list = [user_id, user_id + 1]
+    #friend_list = [user_id, user_id + 1]
     presence_state = get_and_subscribe_presence_multi socket, friend_list(user_id)
     push socket, "presence_state", presence_state
     track_user_presence(user_id)
@@ -44,7 +45,7 @@ defmodule ChirperWeb.UserChannel do
   end
 
   def broadcast_tweet(user,post) do
-    Enum.map Chirper.Accounts.followers(user), fn x->
+    Enum.map Accounts.followers(user), fn x->
       ChirperWeb.Endpoint.broadcast("user:#{x.id}", "change", post)
     end
   end
@@ -52,7 +53,7 @@ defmodule ChirperWeb.UserChannel do
   # Let's pretend that the current user is allowed to see the presence of users with an id between
   # 10 less than and 100 more than it's own id.
   defp friend_list(user_id) do
-    Enum.to_list(user_id - 10..user_id + 100)
+    Accounts.following_ids(user_id)
   end
 
   # Track the current process as a presence for the given user on it's designated presence topic

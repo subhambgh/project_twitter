@@ -66,6 +66,25 @@ channel.on(`user:${window.userId}:new_message`, (message) => {
 });
 channel.on("change", tweet => {
   console.log("Change:", tweet);
+  const div = document.createElement('div');
+  div.className = 'card';
+  div.innerHTML = `
+    <div class='card-content'>
+        <div class=row>
+        <span class="card-title grey-text text-darken-4">`+tweet.title+`<i class="material-icons right dropdown-trigger  activator" data-target='dropdown`+tweet.title+`'>more_vert</i></span>
+        <ul id='dropdown`+tweet.id+`' class='dropdown-content'>
+            <li><!--%= link "Edit", to: Routes.post_path(@conn, :retweet, @post)  %--></li>
+        </ul>
+        `+tweet.body+`
+        <br/>
+        <div class="chip right">
+            <img src='<%= "https://ui-avatars.com/api/?name=`+tweet.user+`&bold=true&background=512DA8&color=FFF&rounded=true" %>' alt="Contact Person">
+            `+tweet.user+`
+        </div>
+        </div>
+    </div>`
+    document.getElementById('posts').appendChild(div);
+  
 })
 
 

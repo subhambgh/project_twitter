@@ -4,7 +4,7 @@
         <span class="card-title grey-text text-darken-4"><%= @post.title %><i class="material-icons right dropdown-trigger  activator" data-target='dropdown<%= @post.id %>'>more_vert</i></span>
 
         <ul id='dropdown<%= @post.id %>' class='dropdown-content'>
-            <li><!--%= link "Edit", to: Routes.post_path(@conn, :retweet, @post)  %--></li>
+            <li><%= link "Retweet", to: Routes.post_path(@conn, :retweet, post_id: @post.id)  %></li>
         </ul>
 
         <%= @post.body %>
