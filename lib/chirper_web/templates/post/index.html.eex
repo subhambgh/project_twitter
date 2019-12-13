@@ -49,16 +49,12 @@
 </style>
 
 <div class="container-fluid">
-	
 	<div class="row">
-		
-
-		<div class ="col s2">	
+		<div class ="col s2">
+			<%= for {k, v} <- @hashTagMap do %>
+					    <a><%="#{k}->#{v}"%></a><br>
+			<% end %>
 		</div>
-
-
-
-
 		<div class ="col s8 custom-card"  >
 			<div class="custom-container">
 				
