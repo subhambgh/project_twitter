@@ -117,8 +117,10 @@
 				    </div>
 				</div>
 				<hr style="width: 100%;">
+
 				<h4>Tweet Feeds </h4>
 				<div id="posts" class="row">
+
 					<%= for post <- @posts do %>
 					    <%= render "card.html", post: post, conn: @conn %>
 					<% end %>
