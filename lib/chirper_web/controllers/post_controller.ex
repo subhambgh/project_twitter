@@ -7,6 +7,8 @@ defmodule ChirperWeb.PostController do
 
   def index(conn, _params) do
     posts = Blog.feed(conn.assigns.current_user.id)
+
+    ############ hashtags ############################
     hashregex = ~r/\#\w*/
     tags = Enum.map Blog.list_posts(), fn x-> 
       List.flatten(Regex.scan(hashregex, x.body))
@@ -14,6 +16,17 @@ defmodule ChirperWeb.PostController do
     {_,hashTagMap} = List.flatten(tags)
       |> Enum.reduce(%{}, fn x, acc -> Map.update(acc, x, 1, &(&1 + 1)) end)
       |> Map.pop("#retweet")
+
+    ################## mentions ######################
+    mentionregex = ~r/\@\w*/
+    mentions = Enum.map Blog.list_posts(), fn x-> 
+      List.flatten(Regex.scan(mentionregex, x.body))
+    end
+    mentionTagMap = List.flatten(mentions)
+      |> Enum.reduce(%{}, fn x, acc -> Map.update(acc, x, 1, &(&1 + 1)) end)
+
+    ###################################################
+
     changeset = Blog.change_post(%Post{})
     user = Accounts.get_user!(conn.assigns.current_user.id)
     followers = Accounts.followers(user)
@@ -24,7 +37,8 @@ defmodule ChirperWeb.PostController do
       user: user,
       followers: followers,
       following: following,
-      hashTagMap: hashTagMap
+      hashTagMap: hashTagMap,
+      mentionTagMap: mentionTagMap
       )
   end
 
@@ -69,13 +83,14 @@ defmodule ChirperWeb.PostController do
 
   def search(conn, params) do
     hashregex = ~r/\#\w*/
+    mentionregex = ~r/\@\w*/
     search_term = get_in(params, ["query"])
     posts = Enum.map Blog.list_posts(), fn x->
       body = x.body
       title = x.title
-      if search_term == nil || search_term == "" 
+      if search_term == nil || search_term == ""
         || Enum.member?(List.flatten(Regex.scan(hashregex,body)),search_term)
-        || Enum.member?(List.flatten(Regex.scan(hashregex,title)),search_term)  do
+        || Enum.member?(List.flatten(Regex.scan(mentionregex,body)),search_term)  do
         x
       else
         []
