@@ -1,0 +1,13 @@
+	<%= form_for @conn, Routes.post_path(@conn, :search), [method: :get], fn f -> %>
+      	<%= search_input f, :query %>
+      <%= submit "Search" %>
+    <% end %>
+
+    <div id="posts" class="row">
+    	<% IO.inspect @posts %>
+    	<%= unless @posts==[] do %>
+			<%= for post <- @posts do %>
+				<%= render "card.html", post: post, conn: @conn %>
+			<% end %>
+		<% end %>
+	</div>
