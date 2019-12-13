@@ -5,16 +5,17 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>TWITTER</title>
+    <title>Twitter</title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
   </head>
 
-  <body>
+  <body style="background: #f3c538;">
     <nav>
-      <div class="nav-wrapper primary-dark-color">
-        <a href="/" class="brand-logo">TWITTER</a>
-     
+      <div class="nav-wrapper black">
+        <a href="#!" class="brand-logo"><i class="material-icons sidenav-trigger  black"  data-target="slide-out" style="margin-left: 10px;">menu</i><text>Twitter</text></a>
+
         <!-- Dropdown Structure User actions -->
         <ul id="user-actions" class="dropdown-content">
           <li><%= link "Logout", to: Routes.session_path(@conn, :delete), method: :delete %></li>
@@ -35,12 +36,28 @@
       </div>
     </nav>
     <main>
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
       <div class='container'>
         <%= render @view_module, @view_template, assigns %>
       </div>
     </main>
+    
+
+
+    <ul id="slide-out" class="sidenav">
+      <li><div class="user-view">
+        <div class="background">
+          <img src="https://www.availableideas.com/wp-content/uploads/2016/10/Colorful-Polygonal-Render-iPhone-6-Plus-HD-Wallpaper.jpg">
+        </div>
+        <a href="#user"><img class="circle" src="https://www.cise.ufl.edu/wp-content/uploads/2018/07/dobra-alin_sm.jpg"></a>
+        <a href="#name"><span class="white-text name">John Doe</span></a>
+        <a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>
+      </div></li>
+      <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
+      <li><a href="#!">Second Link</a></li>
+      <li><div class="divider"></div></li>
+      <li><a class="subheader">Subheader</a></li>
+      <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+    </ul>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script>
