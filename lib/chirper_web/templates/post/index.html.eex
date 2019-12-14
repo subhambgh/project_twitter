@@ -53,18 +53,13 @@
   padding: 2px 16px;
 }
 
-.fixed {
-  position: fixed;
-  display: flex;
 
-}
 </style>
 
 <div class="container-fluid">
 	
 	<div class="row">
 		<div class ="col s2">
-<<<<<<< HEAD
 
 			<div class="fixed">
 				
@@ -74,15 +69,15 @@
 				</div>
 
 
-				<div class="row" style="position: relative; margin-left: -140px; margin-top: 55px; width: 180px;">
+				<div class="row" style="position: fixed;  margin-top: 48px; width: 80px;">
 					<hr >
 				</div>
 
 
-				<div class="row" style="position: relative; margin-left: -180px; margin-top: 60px; width: 200px;">
+				<div class="row" style="position: fixed;  margin-top: 60px; width: 200px;">
 					<ol >
 						<%= for {k, v} <- @hashTagMap do %>
-								    <li><a><%="#{k}->#{v}"%></a></li>
+							<li><a><%="#{k} --> #{v}"%></a></li>
 						<% end %>
 					</ol>
 				
@@ -91,21 +86,21 @@
 
 
 
-				<div class="row"  style="position: fixed; margin-left: -180px; margin-top: 60px; width: 200px;">
+				<div class="row"  style="position: fixed; margin-top: 260px; width: 200px;">
  					<h5 >Top Mentions</h5>
 					
 				</div>
 
 
-				<div class="row" style="position: relative; margin-left: -140px; margin-top: 55px; width: 180px;">
+				<div class="row" style="position: fixed; margin-top: 310px; width: 80px;">
 					<hr >
 				</div>
 
 
-				<div class="row" style="position: relative; margin-left: -180px; margin-top: 60px; width: 200px;">
+				<div class="row" style="position: fixed; margin-top: 320px; width: 200px;">
 					<ol >
 						<%= for {k, v} <- @mentionTagMap do %>
-							    <a><%="#{k}->#{v}"%></a><br>
+							    <li><a><%="#{k} --> #{v}"%></a></li>
 						<% end %>
 					</ol>
 				
@@ -231,7 +226,8 @@
 		</div>
 
 		<div class="vertical-line"></div>
-		<div class ="col s2">
+
+		<div class ="col s2 fixed" style="margin-left: 1090px;">
 			<ul class="sidebar-nav nav navbar-inverse" id="presences" >
 			</ul>
 		</div>

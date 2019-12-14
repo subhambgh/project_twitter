@@ -20,7 +20,7 @@ const renderPresences = (presences) => {
   })
   document.getElementById('presences').innerHTML = listed_presences
     .map(presence => `
-      <div >
+      <div class = "card" style="padding: 15px 10px 10px 10px;">
         <li onclick="">
           <a>
             <div class = "row">
