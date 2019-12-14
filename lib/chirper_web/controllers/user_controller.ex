@@ -32,14 +32,13 @@ defmodule ChirperWeb.UserController do
 
   def show(conn, %{"id" => id}) do
     user = Accounts.get_user!(id)
-    posts = Blog.feed(id)
+    posts = Blog.getPostByUserId(id)
     followers = Accounts.followers(user)
     following = Accounts.following(user)
 
     render(conn, "show.html",
       posts: posts,
       user: user,
-      count: 0,
       followers: followers,
       following: following)
   end

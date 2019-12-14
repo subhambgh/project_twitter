@@ -129,4 +129,14 @@ defmodule Chirper.Blog do
 
     Repo.all(query)
   end
+
+  def getPostByUserId(user_id) do
+    query =
+      from p in Post,
+        where: p.user_id == ^user_id,
+        order_by: [desc: p.inserted_at],
+        preload: [:user]
+
+    Repo.all(query)
+  end
 end
