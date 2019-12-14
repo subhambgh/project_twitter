@@ -4,7 +4,7 @@
             <h1>
                 <%= @user.username %>
             </h1>
-            <b>Tweet:</b> <%= @count %>
+            <b>Tweet:</b> <%= Enum.count(@posts) %>
         </section>
         <section class="stats">
             <div class="stats">
@@ -33,10 +33,12 @@
                 <% end %>
             <% end %>
         </section>
+        <%= unless @posts == nil do %>
             <div class="row">
                 <%= for post <- @posts do %>
                     <%= render ChirperWeb.PostView, "card.html", post: post, conn: @conn %>
                 <% end %>
             </div>
+            <% end %>
     </aside>
 </div>
