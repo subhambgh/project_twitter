@@ -12,6 +12,12 @@
     background-color: #673AB7 !important;
 }
 
+.fixed {
+  position: fixed;
+  display: flex;
+
+}
+
 .primary-text {
     color: #212121 !important;
 }

@@ -12,8 +12,8 @@
   </head>
 
   <body style="background: #e1dee3;">
-    <nav>
-      <div class="nav-wrapper black">
+    <nav style="position: fixed; overflow: hidden;z-index: 100;">
+      <div class="nav-wrapper black ">
         <a href="/" class="brand-logo"><i class="material-icons sidenav-trigger  black"  data-target="slide-out" style="margin-left: 10px;">menu</i><text>Twitter</text></a>
 
         <!-- Dropdown Structure User actions -->
@@ -39,6 +39,11 @@
 
       </div>
     </nav>
+
+    <div style="height: 70px;">
+      
+    </div>
+
     <main>
       <div class='container'>
         <%= render @view_module, @view_template, assigns %>

@@ -1,44 +1,70 @@
-<div class="row">
-    <aside class="col-md-4">
-        <section class="user_info">
-            <h1>
-                <%= @user.username %>
-            </h1>
+
+<div class="container-fluid">
+
+  <div class="row">
+    
+    <div class="col s2">
+      
+    </div>
+
+    <div class="col s8" style="margin-top: 20px; padding: 20px 20px 35px 30px;">
+
+        <div class="card" style="padding: 10px 20px 35px 30px; margin-left: -60px; margin-right: -60px; font-family: Georgia, serif; font-size: 20px;" >
+
+            <h5><%= @user.username %></h5>
+
+
             <b>Tweet:</b> <%= Enum.count(@posts) %>
-        </section>
-        <section class="stats">
+
             <div class="stats">
                 <!--%= link to: Routes.user_follower_path(@conn, :following, @user) do %-->
-                    <strong id="following" class="stat">
+                    <b id="following" class="stat">
                         <%= Enum.count(@following) %>
-                    </strong>
+                    </b>
                     following
                 <!--% end %-->
                 <!--%= link to: Routes.user_follower_path(@conn, :followers, @user) do %-->
-                    <strong id="followers" class="stat">
+                    <b id="followers" class="stat">
                         <%= Enum.count(@followers) %>
-                    </strong>
+                    </b>
                     followers
                 <!--% end %-->
             </div>
+            <div style="height: 10px;"></div>
             <%= unless @current_user == @user  do %>
                 <%= if Accounts.following?(@current_user, @user) do %>
                     <%= form_for @conn, Routes.user_relationship_path(@conn, :unfollow, @user), ["data-remote": "true"], fn f -> %>
-                        <%= submit "Unfollow" %>
+                        <%= submit "Unfollow",  class: "waves-effect waves-light btn" %>
                     <% end %>
                 <% else %>
                     <%= form_for @conn, Routes.user_relationship_path(@conn, :follow, @user), ["data-remote": "true"], fn f -> %>
-                        <%= submit "Follow" %>
+                        <%= submit "Follow",  class: "waves-effect waves-light btn" %>
                     <% end %>
                 <% end %>
             <% end %>
+            
+        </div>
+
+        <hr style="width: 95%;">
+
+        <section class="stats">
         </section>
+
         <%= unless @posts == nil do %>
-            <div class="row">
+            <div class="row"  style="padding: 5px 10px 5px 10px;" >
                 <%= for post <- @posts do %>
                     <%= render ChirperWeb.PostView, "card.html", post: post, conn: @conn %>
                 <% end %>
-            </div>
-            <% end %>
-    </aside>
+            </div>      
+        <% end %>
+
+    </div>
+
+    <div class="col s2">
+      
+    </div>
+
+  </div>
+  
 </div>
+
